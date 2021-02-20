@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: ${NELO_TEST_DATABASE_URL}:#{"NOT_PRESENT"}
+    driverClassName: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+  hibernate:
+    hbm2ddl:
+      auto: create
+management:
+  endpoint:
+    health:
+      show-details: always
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"

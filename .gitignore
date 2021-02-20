@@ -1,3 +1,27 @@
+# Gradle
+.gradle
+.gradle/**
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+# IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+#OSC
+.DS_Store
+
+# Docker
+docker-compose-dev.yml
+
 # Compiled class file
 *.class
 
