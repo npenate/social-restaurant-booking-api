@@ -11,6 +11,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=social_restaurant
+      - POSTGRES_MULTIPLE_DATABASES=social_restaurant_test
   social-restaurant-booking-api:
     build:
       context: .
@@ -18,6 +19,7 @@ services:
     hostname: social-restaurant-booking-api
     environment:
       - NELO_TEST_DATABASE_URL=jdbc:postgresql://postgres:5432/social_restaurant?user=postgres&password=postgres
+      - NELO_TEST_DATABASE_URL_FOR_TESTS=jdbc:postgresql://postgres:5432/social_restaurant_test?user=postgres&password=postgres
     ports:
       - "8080:8080"
     init: true
