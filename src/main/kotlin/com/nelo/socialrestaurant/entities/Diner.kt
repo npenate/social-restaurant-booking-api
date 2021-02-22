@@ -1,5 +1,6 @@
 package com.nelo.socialrestaurant.entities
 
+import org.springframework.data.geo.Point
 import java.time.LocalDateTime
 import java.util.UUID
 import javax.persistence.Entity
@@ -19,10 +20,12 @@ data class Diner(
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
     name = "diners_food_classifications",
-    joinColumns=[JoinColumn(name = "food_classification_id")],
-    inverseJoinColumns=[JoinColumn(name = "diner_id")]
+    joinColumns = [JoinColumn(name = "food_classification_id")],
+    inverseJoinColumns = [JoinColumn(name = "diner_id")]
   )
-  var restrictions: Set<FoodClassification>,
+  var restrictions: Set<FoodClassification> = emptySet(),
+  var location: Point,
+  var zipCode: String,
   var createdAt: LocalDateTime = LocalDateTime.now(),
   var updatedAt: LocalDateTime = LocalDateTime.now()
 )

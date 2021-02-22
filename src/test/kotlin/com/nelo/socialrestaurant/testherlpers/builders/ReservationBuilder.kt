@@ -12,10 +12,11 @@ class ReservationBuilder() {
     private set
   var diners = emptySet<Diner>()
     private set
-  var table = Table(UUID.randomUUID(), 2)
+  var table = TableBuilder().build()
     private set
   var scheduledAt = LocalDateTime.now()
     private set
+
   fun build() =
     Reservation(
       id,

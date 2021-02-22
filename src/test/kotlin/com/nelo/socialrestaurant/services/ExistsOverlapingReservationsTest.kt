@@ -1,7 +1,5 @@
 package com.nelo.socialrestaurant.services
 
-import com.nelo.socialrestaurant.entities.Reservation
-import com.nelo.socialrestaurant.entities.Table
 import com.nelo.socialrestaurant.repositories.ReservationsRepository
 import com.nelo.socialrestaurant.testherlpers.builders.DinerBuilder
 import com.nelo.socialrestaurant.testherlpers.builders.ReservationBuilder
@@ -13,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDateTime
-import java.util.UUID
 
 
 @SpringBootTest
@@ -23,7 +20,7 @@ internal class ExistsOverlappingReservationsTest {
   @MockkBean
   private lateinit var reservationsRepository: ReservationsRepository
   @Autowired
-  private lateinit var overlappingReservationsService: ReservationService
+  private lateinit var reservationsService: ReservationService
 
   @Test
   fun `The provided diners do not have overlapping reservations`() {
@@ -37,7 +34,7 @@ internal class ExistsOverlappingReservationsTest {
       DinerBuilder().build()
     )
 
-    val existsOverlappingReservations = overlappingReservationsService.existsOverlappingReservations(
+    val existsOverlappingReservations = reservationsService.existsOverlappingReservations(
       diners,
       LocalDateTime.now().minusHours(2),
       LocalDateTime.now().plusHours(2)
@@ -57,7 +54,7 @@ internal class ExistsOverlappingReservationsTest {
       DinerBuilder().build()
     )
 
-    val existsOverlappingReservations = overlappingReservationsService.existsOverlappingReservations(
+    val existsOverlappingReservations = reservationsService.existsOverlappingReservations(
       diners,
       LocalDateTime.now().minusHours(2),
       LocalDateTime.now().plusHours(2)

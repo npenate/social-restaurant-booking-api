@@ -7,7 +7,6 @@ import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.JoinColumn
-import javax.persistence.JoinColumns
 import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 import javax.persistence.ManyToOne
@@ -20,8 +19,8 @@ data class Reservation(
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
     name = "reservations_diners",
-    joinColumns=[JoinColumn(name = "reservation_id")],
-    inverseJoinColumns=[JoinColumn(name = "diner_id")]
+    joinColumns = [JoinColumn(name = "reservation_id")],
+    inverseJoinColumns = [JoinColumn(name = "diner_id")]
   )
   var diners: Set<Diner>,
   @ManyToOne(fetch = FetchType.LAZY)
