@@ -1,6 +1,9 @@
 package com.nelo.socialrestaurant.functionaltest
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.nelo.socialrestaurant.controllers.dto.CreateReservationRequest
 import com.nelo.socialrestaurant.models.entities.Diner
+import com.nelo.socialrestaurant.models.entities.Table
 import com.nelo.socialrestaurant.repositories.DinersRepository
 import com.nelo.socialrestaurant.repositories.FoodClassificationsRepository
 import com.nelo.socialrestaurant.repositories.ReservationsRepository
@@ -30,7 +33,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-internal class FindAvailableRestaurantsTest {
+internal class MakeReservationTest {
   @Autowired
   private lateinit var foodClassificationsRepository: FoodClassificationsRepository
   @Autowired
@@ -38,13 +41,16 @@ internal class FindAvailableRestaurantsTest {
   @Autowired
   private lateinit var restaurantsRepository: RestaurantsRepository
   @Autowired
-  private lateinit var tablesRepository: TablesRepository
-  @Autowired
   private lateinit var reservationsRepository: ReservationsRepository
   @Autowired
+  private lateinit var tablesRepository: TablesRepository
+  @Autowired
   private lateinit var mockMvc: MockMvc
+  @Autowired
+  private lateinit var mapper: ObjectMapper
 
   var diners = emptyList<Diner>()
+  var tables = emptyList<Table>()
 
   @BeforeEach
   fun setUp() {
@@ -76,7 +82,7 @@ internal class FindAvailableRestaurantsTest {
     )
     restaurantsRepository.saveAll(restaurants)
 
-    var tables = listOf(
+    tables = listOf(
       TableBuilder().restaurant(restaurants[0]).zipCode(diners[0].zipCode).build(),
       TableBuilder().restaurant(restaurants[0]).zipCode(diners[0].zipCode).build(),
       TableBuilder().restaurant(restaurants[1]).zipCode(diners[1].zipCode).build(),
@@ -87,29 +93,25 @@ internal class FindAvailableRestaurantsTest {
 
   @Test
   fun `Get a list of available restaurants`() {
-    getAvailableRestaurants(listOf(diners[0].id, diners[1].id), LocalDateTime.now().plusHours(1), 0, 20)
+    makeReservation(listOf(diners[0].id, diners[1].id), LocalDateTime.now().plusHours(1), tables[0].id)
       .andExpect(status().isOk)
-      .andExpect(jsonPath("$[0].id").exists())
-
+      .andExpect(jsonPath("$.id").exists())
   }
 
-  private fun getAvailableRestaurants(
+  private fun makeReservation(
     dinerIds: List<UUID>,
     datetime: LocalDateTime,
-    page: Int,
-    pageSize: Int
+    tableId: UUID
   ): ResultActions {
-    val query = UriComponentsBuilder
-      .newInstance()
-      .queryParam("dinerId", dinerIds)
-      .queryParam("datetime", datetime)
-      .queryParam("page", page)
-      .queryParam("size", pageSize)
-      .build()
-
+    val payload = CreateReservationRequest(
+      dinerIds = dinerIds,
+      tableId = tableId,
+      scheduleAt = datetime
+    )
     return mockMvc.perform(
-      MockMvcRequestBuilders.get("/api/v1/availability$query")
+      MockMvcRequestBuilders.post("/api/v1/reservations")
         .contentType(MediaType.APPLICATION_JSON)
+        .content(mapper.writeValueAsString(payload))
     )
   }
 }
