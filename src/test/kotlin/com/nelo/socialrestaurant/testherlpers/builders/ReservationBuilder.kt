@@ -1,8 +1,8 @@
 package com.nelo.socialrestaurant.testherlpers.builders
 
-import com.nelo.socialrestaurant.entities.Diner
-import com.nelo.socialrestaurant.entities.Reservation
-import com.nelo.socialrestaurant.entities.Table
+import com.nelo.socialrestaurant.models.entities.Diner
+import com.nelo.socialrestaurant.models.entities.Reservation
+import com.nelo.socialrestaurant.models.entities.Table
 import java.time.LocalDateTime
 import java.util.UUID
 

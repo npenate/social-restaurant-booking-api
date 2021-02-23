@@ -1,10 +1,9 @@
-package com.nelo.socialrestaurant.entities
+package com.nelo.socialrestaurant.models.entities
 
 import java.time.LocalDateTime
 import java.util.UUID
 import javax.persistence.Entity
 import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.JoinTable
@@ -14,7 +13,6 @@ import javax.persistence.ManyToOne
 @Entity(name = "reservations")
 data class Reservation(
   @Id
-  @GeneratedValue(generator = "UUID")
   var id: UUID,
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(

@@ -1,15 +1,13 @@
-package com.nelo.socialrestaurant.entities
+package com.nelo.socialrestaurant.models.entities
 
 import java.time.LocalDateTime
 import java.util.UUID
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity(name = "food_classifications")
 data class FoodClassification(
   @Id
-  @GeneratedValue(generator = "UUID")
   var id: UUID,
   var name: String,
   var description: String? = null,

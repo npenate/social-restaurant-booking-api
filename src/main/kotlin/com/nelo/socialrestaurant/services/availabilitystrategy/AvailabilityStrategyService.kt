@@ -1,13 +1,13 @@
 package com.nelo.socialrestaurant.services.availabilitystrategy
 
-import com.nelo.socialrestaurant.entities.Diner
+import com.nelo.socialrestaurant.models.entities.Diner
 import com.nelo.socialrestaurant.repositories.TablesRepository
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
 @Component
-class AvailabilityService(
+class AvailabilityStrategyService(
   val tablesRepository: TablesRepository
 ) {
   var availabilitySearchBehavior: AvailabilitySearchBehavior = SingleTableStrategy(tablesRepository)
@@ -15,6 +15,7 @@ class AvailabilityService(
   fun findAvailableTables(
     diners: Collection<Diner>,
     scheduleAt: LocalDateTime,
-    page: Pageable
-  ) = availabilitySearchBehavior.findAvailableTables(diners, scheduleAt, page)
+    page: Int,
+    pageSize: Int
+  ) = availabilitySearchBehavior.findAvailableTables(diners, scheduleAt, page, pageSize)
 }

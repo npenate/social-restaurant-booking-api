@@ -1,6 +1,6 @@
 package com.nelo.socialrestaurant.controllers.dto
 
-import com.nelo.socialrestaurant.entities.Table
+import com.nelo.socialrestaurant.models.entities.Table
 import java.util.UUID
 
 data class TableResponse(

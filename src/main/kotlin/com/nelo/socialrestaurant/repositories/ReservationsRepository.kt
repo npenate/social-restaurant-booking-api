@@ -1,7 +1,7 @@
 package com.nelo.socialrestaurant.repositories
 
-import com.nelo.socialrestaurant.entities.Diner
-import com.nelo.socialrestaurant.entities.Reservation
+import com.nelo.socialrestaurant.models.entities.Diner
+import com.nelo.socialrestaurant.models.entities.Reservation
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime

@@ -1,6 +1,6 @@
 package com.nelo.socialrestaurant.testherlpers.builders
 
-import com.nelo.socialrestaurant.entities.FoodClassification
+import com.nelo.socialrestaurant.models.entities.FoodClassification
 import com.nelo.socialrestaurant.testherlpers.valuegenerators.StringValueGenerator
 import java.util.UUID
 

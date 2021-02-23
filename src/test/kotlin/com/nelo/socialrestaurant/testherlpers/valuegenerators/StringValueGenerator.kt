@@ -18,7 +18,7 @@ class StringValueGenerator {
       .map(digitsCharPool::get)
       .joinToString("");
 
-    fun generateFoodClassificationString(size: Int = 5) =
+    fun generateFoodClassificationString() =
       foodClassificationPool[Random.nextInt(0, foodClassificationPool.size)]
   }
 }

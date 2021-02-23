@@ -20,7 +20,7 @@ internal class ExistsOverlappingReservationsTest {
   @MockkBean
   private lateinit var reservationsRepository: ReservationsRepository
   @Autowired
-  private lateinit var reservationsService: ReservationService
+  private lateinit var reservationsService: ReservationsService
 
   @Test
   fun `The provided diners do not have overlapping reservations`() {

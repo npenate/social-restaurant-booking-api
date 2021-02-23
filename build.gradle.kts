@@ -21,11 +21,13 @@ val springBootVersion = "2.2.6.RELEASE"
 val kotlinVersion = "1.3.72"
 val detektVersion = "1.0.0-RC16"
 val jaxbVersion by extra { "2.3.1" }
+val arrowVersion = "0.8.2"
 
 dependencies {
-	// Kotlin
+	// Kotlin and libraries
 	implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+	implementation("io.arrow-kt:arrow-core:$arrowVersion")
 
 	// Web
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
