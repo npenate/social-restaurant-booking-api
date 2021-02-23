@@ -26,4 +26,8 @@ data class Reservation(
   var scheduledAt: LocalDateTime,
   var createdAt: LocalDateTime = LocalDateTime.now(),
   var updatedAt: LocalDateTime = LocalDateTime.now()
-)
+) {
+  companion object {
+    const val RESERVATION_DURATION_HOURS = 2L
+  }
+}

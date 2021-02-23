@@ -4,14 +4,12 @@ import com.nelo.socialrestaurant.repositories.DinersRepository
 import com.nelo.socialrestaurant.repositories.TablesRepository
 import com.nelo.socialrestaurant.testherlpers.builders.DinerBuilder
 import com.nelo.socialrestaurant.testherlpers.builders.TableBuilder
-import com.nelo.socialrestaurant.testherlpers.valuegenerators.StringValueGenerator
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.domain.Pageable
 import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDateTime
 import java.util.*
@@ -45,8 +43,7 @@ internal class FindAvailableTablesTest {
 
     val availableTables = availabilityService.getAvailableTables(
       dinerIds,
-      LocalDateTime.now(),
-      Pageable.unpaged()
+      LocalDateTime.now()
     )
     assert(availableTables.isNotEmpty())
   }
@@ -68,8 +65,7 @@ internal class FindAvailableTablesTest {
 
     val availableTables = availabilityService.getAvailableTables(
       dinerIds,
-      LocalDateTime.now(),
-      Pageable.unpaged()
+      LocalDateTime.now()
     )
     assert(availableTables.isEmpty())
   }

@@ -2,6 +2,7 @@ package com.nelo.socialrestaurant.services
 
 import com.nelo.socialrestaurant.exceptions.OverlappingReservationException
 import com.nelo.socialrestaurant.exceptions.PastDatatimeException
+import com.nelo.socialrestaurant.models.entities.Reservation
 import com.nelo.socialrestaurant.models.entities.Table
 import com.nelo.socialrestaurant.services.availabilitystrategy.AvailabilityStrategyService
 import org.springframework.data.domain.Pageable
@@ -15,26 +16,23 @@ class AvailabilityService(
   private val reservationsService: ReservationsService,
   private val dinersService: DinersService
 ) {
-  companion object {
-    private const val RESERVATION_DURATION_HOURS = 2L
-  }
 
   fun getAvailableTables(
     dinerIds: Collection<UUID>,
     scheduleAt: LocalDateTime,
-    page: Int?,
-    pageSize: Int?
+    page: Int? = null,
+    pageSize: Int? = null
   ): Collection<Table> {
     val diners = dinersService.find(dinerIds)
     if (reservationsService.existsOverlappingReservations(
         diners,
-        scheduleAt.minusHours(RESERVATION_DURATION_HOURS),
-        scheduleAt.plusHours(RESERVATION_DURATION_HOURS))
+        scheduleAt.minusHours(Reservation.RESERVATION_DURATION_HOURS),
+        scheduleAt.plusHours(Reservation.RESERVATION_DURATION_HOURS))
     ) {
       throw OverlappingReservationException("Some diner has an overlapping reservation")
     }
     if (scheduleAt < LocalDateTime.now()) {
-      throw PastDatatimeException("The datetime provided expired")
+      throw PastDatatimeException("The datetime provided is expired")
     }
     return availabilityStrategyService.findAvailableTables(diners, scheduleAt, page ?: 0, pageSize ?: 20)
   }
