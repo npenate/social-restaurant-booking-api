@@ -18,6 +18,23 @@ class AvailableRestaurantsPresenter {
       restaurantsMap[it.restaurant.id]?.addTable(TableResponse.fromEntity(it))
     }
 
-    return restaurantsMap.values
+    return sortByTableCapacities(restaurantsMap.values)
+  }
+
+  private fun sortByTableCapacities(
+    restaurants: Collection<AvailableRestaurantResponse>
+  ): List<AvailableRestaurantResponse> {
+    return restaurants.sortedWith(Comparator<AvailableRestaurantResponse>{
+      a, b ->
+        var minA = Byte.MAX_VALUE
+        for (t in a.tables) minA = minA.coerceAtMost(t.capacity)
+        var minB = Byte.MAX_VALUE
+        for (t in b.tables) minB = minB.coerceAtMost(t.capacity)
+        when {
+          minA > minB -> 1
+          minA < minB -> -1
+          else -> 0
+        }
+    })
   }
 }
