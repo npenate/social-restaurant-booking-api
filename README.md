@@ -40,8 +40,8 @@ In the dummy data I used `FOOD`.
 **API Docs:** After running the project locally you can see the documentation in http://localhost:8080/swagger-ui.html
 
 ### Postman Collection
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/42f0f2361ccf10bbf28a)  
-Or you can see the collection in this repo.
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.postman.co/run-collection/10b1cae13c12071628a2)  
+Or you can see the collection in this repo. Anyway, the samples in the collection are in sync with the dummy data.
 
 ## Stack ##
 * **Language:** [Kotlin](https://kotlinlang.org/)
