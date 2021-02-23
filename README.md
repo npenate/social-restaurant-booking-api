@@ -37,6 +37,7 @@ This was something I put to last and didn't have time, maybe we can discuss it a
 [![Run in Postman](https://run.pstmn.io/button.svg)](postman://app/collections/import/74b619bf287c2d0d2606)  
 Or you can see the collection in this repo.
 
+## Stack ##
 * **Language:** [Kotlin](https://kotlinlang.org/)
 * **Web framework:** [Spring Boot](https://spring.io/projects/spring-boot)
 * **Database:** [PostgreSQL](https://www.postgresql.org)
