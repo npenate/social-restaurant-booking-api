@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cb5c1f90-0be7-4ed9-ac8b-8267c2023f40",
+		"_postman_id": "6912f2f0-02de-47d2-8b18-987dae2ae821",
 		"name": "Social Restaurant",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/availability?dinerId=57fb94c1-ea81-4213-ba9a-f8ca00b5efd5&dinerId=2bc7981d-d3de-4f88-827e-733bdecd71dd&datetime=2021-02-23T05:02:18",
+					"raw": "http://localhost:8080/api/v1/availability?dinerId=57fb94c1-ea81-4213-ba9a-f8ca00b5efd5&dinerId=2bc7981d-d3de-4f88-827e-733bdecd71dd&datetime=2021-03-23T05:02:18",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -52,7 +52,7 @@
 						},
 						{
 							"key": "datetime",
-							"value": "2021-02-23T05:02:18"
+							"value": "2021-03-23T05:02:18"
 						}
 					]
 				}
@@ -66,7 +66,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"dinerIds\": [\"57fb94c1-ea81-4213-ba9a-f8ca00b5efd5\", \"a5a84aca-5a29-4624-9311-c412119a5fe4\"],\n    \"tableId\": \"a5a84aca-5a29-4624-9311-c412119a5fe4\",\n    \"scheduleAt\": \"2021-06-23T05:02:18\"\n}",
+					"raw": "{\n    \"dinerIds\": [\"57fb94c1-ea81-4213-ba9a-f8ca00b5efd5\", \"a5a84aca-5a29-4624-9311-c412119a5fe4\"],\n    \"tableId\": \"7b9f0009-5c1c-4f18-8441-e1a43bff4a00\",\n    \"scheduleAt\": \"2021-06-23T05:02:18\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
