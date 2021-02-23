@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "cb5c1f90-0be7-4ed9-ac8b-8267c2023f40",
+		"name": "Social Restaurant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search restaurants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/availability?dinerId=57fb94c1-ea81-4213-ba9a-f8ca00b5efd5&dinerId=2bc7981d-d3de-4f88-827e-733bdecd71dd&datetime=2021-02-23T05:02:18",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"availability"
+					],
+					"query": [
+						{
+							"key": "dinerId",
+							"value": "57fb94c1-ea81-4213-ba9a-f8ca00b5efd5"
+						},
+						{
+							"key": "dinerId",
+							"value": "2bc7981d-d3de-4f88-827e-733bdecd71dd"
+						},
+						{
+							"key": "datetime",
+							"value": "2021-02-23T05:02:18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create reservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dinerIds\": [\"57fb94c1-ea81-4213-ba9a-f8ca00b5efd5\", \"a5a84aca-5a29-4624-9311-c412119a5fe4\"],\n    \"tableId\": \"a5a84aca-5a29-4624-9311-c412119a5fe4\",\n    \"scheduleAt\": \"2021-06-23T05:02:18\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Reservation",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/reservations/e04be4e5-4e8b-4fa8-bc50-f20b143df233",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"reservations",
+						"e04be4e5-4e8b-4fa8-bc50-f20b143df233"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
