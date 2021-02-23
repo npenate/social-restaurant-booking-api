@@ -2,6 +2,7 @@ package com.nelo.socialrestaurant.services
 
 import com.nelo.socialrestaurant.repositories.DinersRepository
 import com.nelo.socialrestaurant.repositories.TablesRepository
+import com.nelo.socialrestaurant.services.availabilitystrategy.AvailabilityStrategyService
 import com.nelo.socialrestaurant.testherlpers.builders.DinerBuilder
 import com.nelo.socialrestaurant.testherlpers.builders.TableBuilder
 import com.ninjasquad.springmockk.MockkBean
@@ -19,20 +20,25 @@ import java.util.*
 @ActiveProfiles("test")
 internal class FindAvailableTablesTest {
   @MockkBean
-  private lateinit var tablesRepository: TablesRepository
+  private lateinit var availabilityStrategyService: AvailabilityStrategyService
   @MockkBean
-  private lateinit var dinersRepository: DinersRepository
+  private lateinit var reservationsService: ReservationsService
+  @MockkBean
+  private lateinit var dinersService: DinersService
   @Autowired
   private lateinit var availabilityService: AvailabilityService
 
 
   @Test
   fun `Get a non empty list of available tables`() {
-    every { tablesRepository.findAvailableTables(any(), any(), any(), any(), any(), any(), any()) } answers {
+    every { availabilityStrategyService.findAvailableTables(any(), any(), any(), any()) } answers {
       arrayListOf(TableBuilder().build())
     }
-    every { dinersRepository.findAllById(any()) } answers {
+    every { dinersService.find(any()) } answers {
       arrayListOf(DinerBuilder().build())
+    }
+    every { reservationsService.existsOverlappingReservations(any(), any(), any()) } answers {
+      false
     }
 
     val dinerIds = listOf(
@@ -43,18 +49,21 @@ internal class FindAvailableTablesTest {
 
     val availableTables = availabilityService.getAvailableTables(
       dinerIds,
-      LocalDateTime.now()
+      LocalDateTime.now().plusHours(2)
     )
     assert(availableTables.isNotEmpty())
   }
 
   @Test
   fun `Get an empty list of available tables`() {
-    every { tablesRepository.findAvailableTables(any(), any(), any(), any(), any(), any(), any()) } answers {
-      emptyList()
+    every { availabilityStrategyService.findAvailableTables(any(), any(), any(), any()) } answers {
+      arrayListOf()
     }
-    every { dinersRepository.findAllById(any()) } answers {
+    every { dinersService.find(any()) } answers {
       arrayListOf(DinerBuilder().build())
+    }
+    every { reservationsService.existsOverlappingReservations(any(), any(), any()) } answers {
+      false
     }
 
     val dinerIds = listOf(
@@ -65,7 +74,7 @@ internal class FindAvailableTablesTest {
 
     val availableTables = availabilityService.getAvailableTables(
       dinerIds,
-      LocalDateTime.now()
+      LocalDateTime.now().plusHours(2)
     )
     assert(availableTables.isEmpty())
   }
