@@ -21,4 +21,6 @@ interface ReservationsRepository : CrudRepository<Reservation, UUID> {
     start: LocalDateTime,
     end: LocalDateTime
   ): Collection<Reservation>
+
+  fun findByScheduledAtLessThan(scheduledAt: LocalDateTime): Collection<Reservation>
 }

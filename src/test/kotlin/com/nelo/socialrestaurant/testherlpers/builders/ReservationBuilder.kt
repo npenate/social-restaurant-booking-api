@@ -14,7 +14,7 @@ class ReservationBuilder() {
     private set
   var table = TableBuilder().build()
     private set
-  var scheduledAt = LocalDateTime.now()
+  var scheduledAt = LocalDateTime.now().plusHours(2)
     private set
 
   fun build() =

@@ -1,9 +1,12 @@
 package com.nelo.socialrestaurant.services
 
+import com.nelo.socialrestaurant.exceptions.EntityNotFoundException
 import com.nelo.socialrestaurant.exceptions.OverlappingReservationException
 import com.nelo.socialrestaurant.exceptions.PastDatatimeException
 import com.nelo.socialrestaurant.models.entities.Diner
 import com.nelo.socialrestaurant.models.entities.Reservation
+import com.nelo.socialrestaurant.models.entities.ReservationHistory
+import com.nelo.socialrestaurant.repositories.ReservationsHistoryRepository
 import com.nelo.socialrestaurant.repositories.ReservationsRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -13,7 +16,8 @@ import java.util.UUID
 class ReservationsService(
   val dinersService: DinersService,
   val tablesService: TablesService,
-  val reservationsRepository: ReservationsRepository
+  val reservationsRepository: ReservationsRepository,
+  val reservationsHistoryRepository: ReservationsHistoryRepository
 ) {
 
   fun existsOverlappingReservations(
@@ -43,5 +47,15 @@ class ReservationsService(
       table = table,
       scheduledAt = scheduleAt)
     )
+  }
+
+  fun removeReservation(id: UUID) {
+    val reservation = reservationsRepository.findById(id).orElseThrow {
+      EntityNotFoundException("Reservation not found")
+    }
+    val reservationHistory = ReservationHistory.fromReservation(reservation)
+    reservationHistory.deleted = true
+    reservationsHistoryRepository.save(reservationHistory)
+    reservationsRepository.delete(reservation)
   }
 }
