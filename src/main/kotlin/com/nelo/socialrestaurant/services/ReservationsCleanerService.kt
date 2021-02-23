@@ -12,8 +12,8 @@ import java.time.LocalDateTime
 @Component
 @Profile("!test")
 class ReservationsCleanerService(
-  val reservationsRepository: ReservationsRepository,
-  val reservationsHistoryRepository: ReservationsHistoryRepository
+  private val reservationsRepository: ReservationsRepository,
+  private val reservationsHistoryRepository: ReservationsHistoryRepository
 ) {
   @Scheduled(cron = "0 0 1 * * ?")
   fun cleanReservations() {

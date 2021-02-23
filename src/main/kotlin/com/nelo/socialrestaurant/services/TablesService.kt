@@ -10,8 +10,8 @@ import java.util.UUID
 
 @Service
 class TablesService(
-  val reservationsRepository: ReservationsRepository,
-  val tablesRepository: TablesRepository
+  private val reservationsRepository: ReservationsRepository,
+  private val tablesRepository: TablesRepository
 ) {
 
   fun isAlreadyReserved(

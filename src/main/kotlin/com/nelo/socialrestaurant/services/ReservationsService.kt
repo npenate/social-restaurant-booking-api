@@ -14,10 +14,10 @@ import java.util.UUID
 
 @Service
 class ReservationsService(
-  val dinersService: DinersService,
-  val tablesService: TablesService,
-  val reservationsRepository: ReservationsRepository,
-  val reservationsHistoryRepository: ReservationsHistoryRepository
+  private val dinersService: DinersService,
+  private val tablesService: TablesService,
+  private val reservationsRepository: ReservationsRepository,
+  private val reservationsHistoryRepository: ReservationsHistoryRepository
 ) {
 
   fun existsOverlappingReservations(

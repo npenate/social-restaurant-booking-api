@@ -8,7 +8,7 @@ import java.util.UUID
 
 @Service
 class DinersService(
-  val dinersRepository: DinersRepository
+  private val dinersRepository: DinersRepository
 ) {
 
   fun find(ids: Collection<UUID>): List<Diner> {
