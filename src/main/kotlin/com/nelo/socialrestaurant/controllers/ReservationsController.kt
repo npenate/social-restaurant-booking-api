@@ -3,6 +3,7 @@ package com.nelo.socialrestaurant.controllers
 import com.nelo.socialrestaurant.controllers.dto.CreateReservationRequest
 import com.nelo.socialrestaurant.controllers.dto.CreatedReservationResponse
 import com.nelo.socialrestaurant.services.ReservationsService
+import com.nelo.socialrestaurant.support.openapi.DeleteReservationDocumentation
 import com.nelo.socialrestaurant.support.openapi.MakeReservationDocumentation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
@@ -40,6 +41,7 @@ class ReservationsController(
     )
   )
 
+  @DeleteReservationDocumentation
   @DeleteMapping("/{id}")
   fun removeReservation(
     @PathVariable id: UUID
