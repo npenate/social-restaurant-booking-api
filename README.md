@@ -71,4 +71,4 @@ For test:
  $  ./gradlew test
  ```
  ## Dummy data ##
- The dummy data is in the [last migration](resources/db/migration/V11__Add_initial_data.sql)
+ The dummy data is in the [last migration](src/main/resources/db/migration/V11__Add_initial_data.sql)
