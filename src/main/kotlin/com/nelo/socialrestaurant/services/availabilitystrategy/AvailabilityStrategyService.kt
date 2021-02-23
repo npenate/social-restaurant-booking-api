@@ -2,7 +2,6 @@ package com.nelo.socialrestaurant.services.availabilitystrategy
 
 import com.nelo.socialrestaurant.models.entities.Diner
 import com.nelo.socialrestaurant.repositories.TablesRepository
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 

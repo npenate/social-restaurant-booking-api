@@ -7,7 +7,7 @@ import com.nelo.socialrestaurant.models.entities.Reservation
 import com.nelo.socialrestaurant.repositories.ReservationsRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 @Service
 class ReservationsService(
@@ -25,30 +25,23 @@ class ReservationsService(
     return !reservations.isEmpty()
   }
 
-  fun makeReservation(
-    dinerIds: Collection<UUID>,
-    tableId: UUID,
-    scheduleAt: LocalDateTime
-  ): Reservation {
-    val start = scheduleAt.minusHours(Reservation.RESERVATION_DURATION_HOURS)
-    val end = scheduleAt.plusHours(Reservation.RESERVATION_DURATION_HOURS)
-    val diners = dinersService.find(dinerIds)
-    if (existsOverlappingReservations(diners, start, end)) {
-      throw OverlappingReservationException("Some diner has an overlapping reservation")
-    }
-    val table = tablesService.find(tableId)
-    if(tablesService.isAlreadyReserved(table, start, end)){
-      throw OverlappingReservationException("Table already reserved")
-    }
+  fun makeReservation(dinerIds: Collection<UUID>, tableId: UUID, scheduleAt: LocalDateTime): Reservation {
     if (scheduleAt < LocalDateTime.now()) {
       throw PastDatatimeException("The datetime provided is expired")
     }
-    val reservation = Reservation(
+    val start = scheduleAt.minusHours(Reservation.RESERVATION_DURATION_HOURS)
+    val end = scheduleAt.plusHours(Reservation.RESERVATION_DURATION_HOURS)
+    val table = tablesService.find(tableId)
+    val diners = dinersService.find(dinerIds)
+
+    if (tablesService.isAlreadyReserved(table, start, end) || existsOverlappingReservations(diners, start, end)) {
+      throw OverlappingReservationException("There is an overlapping reservation")
+    }
+    return reservationsRepository.save(Reservation(
       id = UUID.randomUUID(),
       diners = diners.toSet(),
       table = table,
-      scheduledAt = scheduleAt
+      scheduledAt = scheduleAt)
     )
-    return reservationsRepository.save(reservation)
   }
 }
