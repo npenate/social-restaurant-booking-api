@@ -12,10 +12,10 @@ spring:
     properties:
       hibernate:
         format_sql=true
-logging:
-  level:
-    org:
-      hibernate:
-        type: trace
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        type: trace
 flyway:
   enabled: true
