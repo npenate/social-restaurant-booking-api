@@ -40,7 +40,7 @@ In the dummy data I used `FOOD`.
 **API Docs:** After running the project locally you can see the documentation in http://localhost:8080/swagger-ui.html
 
 ### Postman Collection
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/74b619bf287c2d0d2606)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/42f0f2361ccf10bbf28a)  
 Or you can see the collection in this repo.
 
 ## Stack ##
