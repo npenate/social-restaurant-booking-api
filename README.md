@@ -1,4 +1,4 @@
-# Social Restaurant Booking API
+# Social Restaurant Booking API :rocket:
 REST API that aims booking restaurant tables.
 
 ## Table of contents
