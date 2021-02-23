@@ -8,6 +8,7 @@ REST API that aims booking restaurant tables.
 - [Postman Collection](#postman-collection)
 - [Stack](#stack)
 - [Build and Run](#Build-and-Run)
+- [Dummy data](#Dummy-data)
 
 ## Solution considerations
 * **Zip codes**  
@@ -26,6 +27,11 @@ distance to a specific (concentric) point. This part is not implemented.
 * **Double Booking**
 This was something I put to last and didn't have time, maybe we can discuss it a bit ;).
 
+* **Default endorsement/restriction**
+The solution works to always find a match between endorsements and constraints. A diner with empty restrictions will 
+not match any restaurant. Therefore, there must be a default restriction/endorsement at each diner/restaurant. 
+In the dummy data I used `FOOD`.
+ 
 ## Environment
 * Localhost: http://localhost:8080
 * Test
@@ -64,3 +70,5 @@ For test:
  ```shell
  $  ./gradlew test
  ```
+ ## Dummy data ##
+ The dummy data is in the [last migration](resources/db/migration/V11__Add_initial_data.sql)
