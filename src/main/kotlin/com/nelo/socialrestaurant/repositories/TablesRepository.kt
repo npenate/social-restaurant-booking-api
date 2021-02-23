@@ -28,5 +28,5 @@ interface TablesRepository : JpaRepository<Table, UUID> {
     @Param("end") end: LocalDateTime,
     @Param("page") page: Int,
     @Param("page_size") pageSize: Int
-  ): ArrayList<Table>
+  ): List<Table>
 }
