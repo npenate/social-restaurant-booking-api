@@ -14,15 +14,16 @@ interface TablesRepository : JpaRepository<Table, UUID> {
   @Query(
     "WITH preselected_tables as " +
       "(SELECT * FROM tables WHERE zip_code IN (:zipcodes) AND capacity >= :tables_capacity), " +
-          "filtered_restaurant_ids as (SELECT DISTINCT r.id FROM restaurants r " +
-          "JOIN restaurants_food_classifications rfc ON r.id = rfc.restaurant_id " +
-              "WHERE rfc.food_classification_id IN (:endorsements) AND r.zip_code IN(:zipcodes)), " +
+          "filtered_restaurant_ids as (SELECT r.id, count(*) FROM restaurants r JOIN " +
+              "restaurants_food_classifications rfc ON r.id = rfc.restaurant_id WHERE rfc.food_classification_id IN " +
+              "(:endorsements) AND r.zip_code IN(:zipcodes) GROUP BY r.id HAVING count(*) >= :endorsementscount), " +
           "reserved_table_ids as (SELECT pt.id FROM preselected_tables pt JOIN reservations r " +
               "ON pt.id = r.table_id WHERE r.scheduled_at > :start AND r.scheduled_at < :end) " +
-      "SELECT * FROM preselected_tables pt WHERE pt.restaurant_id IN (SELECT * FROM filtered_restaurant_ids) " +
+      "SELECT * FROM preselected_tables pt WHERE pt.restaurant_id IN (SELECT id FROM filtered_restaurant_ids) " +
           "AND pt.id NOT IN (SELECT * FROM reserved_table_ids) limit :page_size offset :page", nativeQuery = true)
   fun findAvailableTables(
     @Param("endorsements") endorsements: Set<UUID>,
+    @Param("endorsementscount") endorsementsCount: Int,
     @Param("zipcodes") zipCodes: Set<String>,
     @Param("tables_capacity") tablesCapacity: Byte,
     @Param("start") start: LocalDateTime,

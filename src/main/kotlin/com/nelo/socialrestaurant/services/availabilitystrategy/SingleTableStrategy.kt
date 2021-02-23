@@ -21,6 +21,7 @@ class SingleTableStrategy(
 
     return tablesRepository.findAvailableTables(
       endorsements = endorsements,
+      endorsementsCount = endorsements.size,
       zipCodes = zipCodes,
       tablesCapacity = diners.size.toByte(),
       start = scheduleAt.minusHours(2),

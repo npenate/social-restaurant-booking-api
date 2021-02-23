@@ -54,7 +54,7 @@ internal class FindAvailableRestaurantsTest {
     tablesRepository.deleteAll()
     restaurantsRepository.deleteAll()
 
-    var foodClassifications = listOf(
+    val foodClassifications = listOf(
       FoodClassificationBuilder().name("FOOD").build(),
       FoodClassificationBuilder().name("PALEO").build(),
       FoodClassificationBuilder().name("VEGAN").build()
@@ -63,20 +63,22 @@ internal class FindAvailableRestaurantsTest {
 
     diners = listOf(
       DinerBuilder().restrictions(setOf(foodClassifications[0])).build(),
-      DinerBuilder().restrictions(setOf(foodClassifications[0], foodClassifications[1])).build()
+      DinerBuilder().restrictions(setOf(foodClassifications[0], foodClassifications[1])).build(),
+      DinerBuilder().restrictions(setOf(foodClassifications[0], foodClassifications[2])).build()
     )
     dinersRepository.saveAll(diners)
 
-    var restaurants = listOf(
+    val restaurants = listOf(
       RestaurantBuilder()
         .endorsements(setOf(foodClassifications[0], foodClassifications[1]))
         .zipCode(diners[0].zipCode).build(),
-      RestaurantBuilder().endorsements(setOf(foodClassifications[0], foodClassifications[1]))
+      RestaurantBuilder()
+        .endorsements(setOf(foodClassifications[0], foodClassifications[1]))
         .zipCode(diners[1].zipCode).build()
     )
     restaurantsRepository.saveAll(restaurants)
 
-    var tables = listOf(
+    val tables = listOf(
       TableBuilder().restaurant(restaurants[0]).zipCode(diners[0].zipCode).build(),
       TableBuilder().restaurant(restaurants[0]).zipCode(diners[0].zipCode).build(),
       TableBuilder().restaurant(restaurants[1]).zipCode(diners[1].zipCode).build(),
@@ -86,11 +88,20 @@ internal class FindAvailableRestaurantsTest {
   }
 
   @Test
-  fun `Get a list of available restaurants`() {
+  fun `Get a list of at least 2 available restaurants`() {
     getAvailableRestaurants(listOf(diners[0].id, diners[1].id), LocalDateTime.now().plusHours(1), 0, 20)
       .andExpect(status().isOk)
       .andExpect(jsonPath("$[0].id").exists())
+      .andExpect(jsonPath("$[1].id").exists())
 
+  }
+
+  @Test
+  fun `Get an empty list of available restaurants`() {
+    getAvailableRestaurants(listOf(diners[0].id, diners[1].id, diners[2].id),
+      LocalDateTime.now().plusHours(1), 0, 20)
+      .andExpect(status().isOk)
+      .andExpect(jsonPath("$[0].id").doesNotExist())
   }
 
   private fun getAvailableRestaurants(
